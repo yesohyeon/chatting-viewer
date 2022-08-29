@@ -1,5 +1,8 @@
 import styled from "styled-components";
 
+import { BACK } from "../../constants/ui";
+import { GREY_50 } from "../../constants/colors";
+
 export default function ModalFrame({ children, handleClick }) {
   return (
     <Container>
@@ -8,7 +11,7 @@ export default function ModalFrame({ children, handleClick }) {
         <Contents>
           {children}
         </Contents>
-        <button onClick={handleClick}>Back</button>
+        <button onClick={handleClick}>{BACK}</button>
       </ModalBlock>
     </Container>
   );
@@ -44,7 +47,7 @@ const ModalBlock = styled.div`
   height: fit-content;
   padding: 15px;
   border-radius: 10px;
-  background-color: #ECECEC;
+  background-color: ${GREY_50};
 `;
 
 const Contents = styled.div`

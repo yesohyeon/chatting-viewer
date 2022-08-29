@@ -4,12 +4,12 @@ import styled from "styled-components";
 
 import ChatroomItem from "./ChatroomItem";
 
-export default function ChatroomsList() {
-  const friendsList = useSelector(state => state.friends.friends);
+export default function ChatroomList() {
+  const friendsList = useSelector(state => state.messages.friends);
   const friendsIds = [...friendsList.allIds];
   const allFriendsInformation = friendsIds.map((friendId) => friendsList.byId[friendId]);
   const chatRoomsList = allFriendsInformation.filter((item) => item.comments.length > 0);
-  const comments = useSelector(state => state.friends.comments.byId);
+  const comments = useSelector(state => state.messages.comments.byId);
 
   const sortedRoomsByDate = chatRoomsList.sort((roomA, roomB) => {
     const lastestMessageIdA = roomA.comments[roomA.comments.length - 1];
