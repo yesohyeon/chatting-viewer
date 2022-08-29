@@ -18,11 +18,9 @@ export default function Friend({ id, profile, name }) {
 
 const Wrapper = styled.div`
   display: flex;
-  margin-top: 20px;
+  padding: 10px;
   width: 200px;
   height: 20px;
-  
-  
 `;
 
 const ProfileWrapper = styled.div`

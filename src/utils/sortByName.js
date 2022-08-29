@@ -1,4 +1,4 @@
-export const sortByFriendName = (list, mode) => {
+export const sortByName = (list, mode) => {
   const ascendedList = list.slice().sort((friendA, friendB) => {
     return friendA.name.localeCompare(friendB.name);
   });

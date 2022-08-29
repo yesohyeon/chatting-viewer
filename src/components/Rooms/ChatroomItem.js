@@ -24,8 +24,12 @@ export default function ChatroomItem({ id, profile, name, lastMessage, createdAt
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-top: 20px;
   width: 500px;
+  height: 40px;
+  background-color: #ECECEC;
+  border-radius: 8px;
 `;
 
 const ProfileWrapper = styled.div`
@@ -34,7 +38,7 @@ const ProfileWrapper = styled.div`
   width: 150px;
   
   > * {
-    margin-right: 10px;
+    margin-left: 10px;
   }
 `;
 
@@ -44,6 +48,6 @@ const MessageWrapper = styled.div`
   
   width: 350px;
   > * {
-    margin-left: 10px;
+    margin-right: 10px;
   }
 `;
