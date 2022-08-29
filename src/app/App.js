@@ -13,7 +13,7 @@ export default function App() {
         <Route path="/friends" element={<FriendsList />} />
         <Route path="/rooms" element={<ChatroomList />} />
         <Route path="/rooms/:friendId" element={<Chatroom />} />
-        <Route paht="/" element={<Navigate to="/friends" replace />} />
+        <Route path="/" element={<Navigate to="/friends" replace />} />
       </Routes>
     </div>
   );
