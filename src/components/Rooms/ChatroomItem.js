@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 import { getDateAndTime } from "../../utils/getDateAndTime";
 import { GREY_50 } from "../../constants/colors";
@@ -51,3 +52,12 @@ const MessageWrapper = styled.div`
     margin-right: 10px;
   }
 `;
+
+ChatroomItem.propTypes = {
+  id: PropTypes.string.isRequired,
+  profile: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  lastMessage: PropTypes.string.isRequired,
+  createdAt: PropTypes.string.isRequired,
+};
+

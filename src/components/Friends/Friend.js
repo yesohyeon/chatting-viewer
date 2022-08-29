@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 import { TALK } from "../../constants/ui";
+import Comment from "../Comment/Comment";
 
 export default function Friend({ id, profile, name }) {
   const navigate = useNavigate();
@@ -34,3 +36,10 @@ const ProfileWrapper = styled.div`
     margin-right: 10px;
   }
 `;
+
+Friend.propTypes = {
+  id: PropTypes.string.isRequired,
+  profile: PropTypes.string,
+  name: PropTypes.string.isRequired,
+};
+

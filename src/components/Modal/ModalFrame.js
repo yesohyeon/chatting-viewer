@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 import { BACK } from "../../constants/ui";
 import { GREY_50 } from "../../constants/colors";
@@ -55,3 +56,7 @@ const Contents = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+
+ModalFrame.propTypes = {
+  handleClick: PropTypes.func,
+};

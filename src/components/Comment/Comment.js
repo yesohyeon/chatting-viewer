@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 import { getDateAndTime } from "../../utils/getDateAndTime";
 import { GREY_100 } from "../../constants/colors";
@@ -27,3 +28,9 @@ const Wrapper = styled.div`
     color: ${GREY_100};
   }
 `;
+
+Comment.propTypes = {
+  name: PropTypes.string.isRequired,
+  comment: PropTypes.string.isRequired,
+  createdAt: PropTypes.string.isRequired,
+};
