@@ -2,7 +2,7 @@ import { ADD_MESSAGE } from "./types";
 
 import { profileImages } from "../../assets/images";
 
-const initialState = {
+export const initialState = {
   friends: {
     byId: {
       "a": {
@@ -48,8 +48,8 @@ const initialState = {
       }
     },
     allIds: ["cccc", "eeee", "ffff"],
-  }
-}
+  },
+};
 
 export default function messagesReducer(state = initialState, action) {
   switch (action.type) {
