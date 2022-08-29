@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-import { getDateAndTime } from "../../utils/getDateAndTime";
+import { getFormattedDateAndTime } from "../../utils/getFormattedDateAndTime";
 import { GREY_100 } from "../../constants/colors";
 
 export default function Comment({ name, comment, createdAt }) {
   return (
     <Wrapper justifyContent={ name === "Me" ? "flex-end" : "flex-start" }>
       <div>{name} : {comment}</div>
-      <div>{getDateAndTime(createdAt)}</div>
+      <div>{getFormattedDateAndTime(createdAt)}</div>
     </Wrapper>
   );
 }

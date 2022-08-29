@@ -3,7 +3,6 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 
 import { TALK } from "../../constants/ui";
-import Comment from "../Comment/Comment";
 
 export default function Friend({ id, profile, name }) {
   const navigate = useNavigate();

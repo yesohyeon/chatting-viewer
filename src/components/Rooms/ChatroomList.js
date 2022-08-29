@@ -12,10 +12,10 @@ export default function ChatroomList() {
   const comments = useSelector(state => state.messages.comments.byId);
 
   const sortedRoomsByDate = chatRoomsList.sort((roomA, roomB) => {
-    const lastestMessageIdA = roomA.comments[roomA.comments.length - 1];
-    const lastestMessageIdB = roomB.comments[roomB.comments.length - 1];
-    const messageDateA = comments[lastestMessageIdA].createdAt;
-    const messageDateB = comments[lastestMessageIdB].createdAt;
+    const latestMessageIdA = roomA.comments[roomA.comments.length - 1];
+    const latestMessageIdB = roomB.comments[roomB.comments.length - 1];
+    const messageDateA = comments[latestMessageIdA].createdAt;
+    const messageDateB = comments[latestMessageIdB].createdAt;
 
     return new Date(messageDateB) - new Date(messageDateA);
   })

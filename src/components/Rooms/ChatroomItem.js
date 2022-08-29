@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-import { getDateAndTime } from "../../utils/getDateAndTime";
+import { getFormattedDateAndTime } from "../../utils/getFormattedDateAndTime";
 import { GREY_50 } from "../../constants/colors";
 
 export default function ChatroomItem({ id, profile, name, lastMessage, createdAt }) {
@@ -16,7 +16,7 @@ export default function ChatroomItem({ id, profile, name, lastMessage, createdAt
       </ProfileWrapper>
       <MessageWrapper>
         <div>{lastMessage.length > 30 ? lastMessage.slice(0, 30) + "..." : lastMessage}</div>
-        <div>{getDateAndTime(createdAt)}</div>
+        <div>{getFormattedDateAndTime(createdAt)}</div>
       </MessageWrapper>
     </Wrapper>
   );
