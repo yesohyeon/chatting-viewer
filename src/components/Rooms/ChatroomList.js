@@ -25,6 +25,7 @@ export default function ChatroomList() {
       {sortedRoomsByDate.map((room) => {
         const latestMessageId = room.comments[room.comments.length - 1];
         const lastMessage = comments[latestMessageId];
+
         return (
           <ChatroomItem
             key={room.id}

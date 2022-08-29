@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-import { getFormattedDateAndTime } from "../../utils/getFormattedDateAndTime";
+import { getFormattedDateAndTime } from "../../utils/getDateAndTime";
 import { GREY_100 } from "../../constants/colors";
 
 export default function Comment({ name, comment, createdAt }) {

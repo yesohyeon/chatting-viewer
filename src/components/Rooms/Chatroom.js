@@ -6,7 +6,7 @@ import styled from "styled-components";
 import Comment from "../Comment/Comment";
 
 import { addMessage } from "../../features/messages/index";
-import { getKoreanDateAndTime } from "../../utils/getFormattedDateAndTime";
+import { getKoreanDateAndTime } from "../../utils/getDateAndTime";
 
 import { ENTER_MESSAGE, SEND } from "../../constants/ui";
 import { GREY_50 } from "../../constants/colors";
