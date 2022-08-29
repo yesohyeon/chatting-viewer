@@ -1,26 +1,31 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-
 import styled from "styled-components";
 
 import Comment from "../Comment/Comment";
 
-import { addMessage } from "../../features/friends/actions";
+import { addMessage } from "../../features/messages/index";
+import { getKoreanDateAndTime } from "../../utils/getDateAndTime";
+
+import { ENTER_MESSAGE, SEND } from "../../constants/ui";
+import { GREY_50 } from "../../constants/colors";
 
 export default function Chatroom() {
   const { friendId } = useParams();
   const [newMessage, setNewMessage] = useState("");
   const [allComments, setAllComments] = useState([]);
 
-  const allCommentsIds = useSelector(state => state.friends.friends).byId[friendId].comments;
-  const comments = useSelector(state => state.friends.comments.byId);
+  const allCommentsIds = useSelector(state => state.messages.friends).byId[friendId].comments;
+  const allCommentsObj = useSelector(state => state.messages.comments.byId);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     const initialMessages = [];
+
     allCommentsIds.map((commentId) => {
-      initialMessages.push(comments[commentId]);
+      initialMessages.push(allCommentsObj[commentId]);
     });
 
     setAllComments(initialMessages);
@@ -30,44 +35,43 @@ export default function Chatroom() {
     e.preventDefault();
 
     if (!newMessage) {
+      alert(ENTER_MESSAGE);
       return;
     }
 
-    const messageInformation = {
+    const newMessageInformation = {
       id: Math.random().toString(36).substr(2, 16),
       author: "Me",
       comment: newMessage,
-      createdAt: new Date().toISOString(),
+      createdAt: getKoreanDateAndTime(),
     };
 
-    setAllComments((prev) => [...prev, messageInformation]);
+    setAllComments((prev) => [...prev, newMessageInformation]);
 
-    dispatch(addMessage(friendId, messageInformation));
+    dispatch(addMessage(friendId, newMessageInformation));
   };
 
   return (
     <Container>
       <Wrapper>
         <CommentsWrapper>
-          {allComments.map((comment) => {
-            return (
-              <Comment
-                key={comment.id}
-                name={comment.author}
-                comment={comment.comment}
-                createdAt={comment.createdAt}
-              />
-            );
-          })}
+          {allComments.map((comment) => (
+            <Comment
+              key={comment.id}
+              name={comment.author}
+              comment={comment.comment}
+              createdAt={comment.createdAt}
+            />
+          ))}
         </CommentsWrapper>
         <MessageForm onSubmit={handleSubmit}>
           <input
             type="text"
-            placeholder="Please enter your message"
+            placeholder={ENTER_MESSAGE}
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
           />
-          <input type="submit" value="Send"/>
+          <input type="submit" value={SEND} />
         </MessageForm>
       </Wrapper>
     </Container>
@@ -84,9 +88,9 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 800px;
-  height: 680px;
+  height: 650px;
   border-radius: 10px;
-  background-color: #ECECEC;
+  background-color: ${GREY_50};
 `;
 
 const CommentsWrapper = styled.div`
@@ -95,7 +99,7 @@ const CommentsWrapper = styled.div`
   align-items: center;
   margin-top: 20px;
   width: 600px;
-  height: 620px;
+  height: 550px;
 `;
 
 const MessageForm = styled.form`

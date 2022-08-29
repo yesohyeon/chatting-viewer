@@ -1,10 +1,10 @@
 import { combineReducers, applyMiddleware, createStore } from "redux";
 import logger from "redux-logger";
 
-import friends from "../features/friends";
+import messages from "../features/messages";
 
 const reducer = combineReducers({
-  friends,
+  messages,
 });
 
 const store = createStore(reducer, applyMiddleware(logger));

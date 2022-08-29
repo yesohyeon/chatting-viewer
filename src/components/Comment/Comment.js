@@ -1,12 +1,13 @@
 import styled from "styled-components";
 
-import getFormattedDateAndTime from "../../utils/getFormattedDateAndTime";
+import { getDateAndTime } from "../../utils/getDateAndTime";
+import { GREY_100 } from "../../constants/colors";
 
 export default function Comment({ name, comment, createdAt }) {
   return (
     <Wrapper justifyContent={ name === "Me" ? "flex-end" : "flex-start" }>
       <div>{name} : {comment}</div>
-      <div>{getFormattedDateAndTime(createdAt)}</div>
+      <div>{getDateAndTime(createdAt)}</div>
     </Wrapper>
   );
 }
@@ -23,6 +24,6 @@ const Wrapper = styled.div`
   >: last-child {
     margin-left: 15px;
     font-size: 10px;
-    color: #808080;
+    color: ${GREY_100};
   }
 `;

@@ -1,36 +1,43 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-
 import styled from "styled-components";
 
 import Friend from "./Friend";
 import ModalPortal from "../Modal/ModalPortal";
-
-import { sortByName } from "../../utils/sortByName";
 import ModalFrame from "../Modal/ModalFrame";
 
-export default function FriendsList() {
-  const [searchName, setSearchName] = useState("");
-  const [sortMode, setSortMode] = useState("Ascending");
-  const [isShowModal, setIsShowModal] = useState(false);
-  const [searchedFriend, setSearchFriend] = useState({});
+import { sortByName } from "../../utils/sortByName";
+import { ASCENDING, DESCENDING, ENTER_NAME, NO_MATCH_NAME } from "../../constants/ui";
+import { GREY_50 } from "../../constants/colors";
 
-  const friendsList = useSelector(state => state.friends.friends);
+export default function FriendsList() {
+  const [searchedName, setSearchedName] = useState("");
+  const [sortMode, setSortMode] = useState({ASCENDING});
+  const [isShowModal, setIsShowModal] = useState(false);
+  const [searchedInformation, setSearchedInformation] = useState({});
+
+  const friendsList = useSelector(state => state.messages.friends);
   const allFriendsInformation = [...friendsList.allIds].map((friendId) => friendsList.byId[friendId]);
   const sortedFriendsList = sortByName(allFriendsInformation, sortMode);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!searchName) {
+    if (!searchedName) {
+      alert(ENTER_NAME);
       return;
     }
 
-    const targetFriend = allFriendsInformation.find((friend) => friend.name === searchName);
+    const targetFriend = allFriendsInformation.find((friend) => friend.name === searchedName);
 
-    setSearchFriend(targetFriend);
+    if (!targetFriend) {
+      alert(NO_MATCH_NAME);
+      return;
+    }
 
+    setSearchedInformation(targetFriend);
     setIsShowModal(true);
+    setSearchedName("");
   };
 
   return (
@@ -39,9 +46,9 @@ export default function FriendsList() {
         <form onSubmit={handleSubmit}>
           <input
             type="test"
-            placeholder="Please enter your friend name to search"
-            value={searchName}
-            onChange={(e) => setSearchName(e.target.value)}
+            placeholder={ENTER_NAME}
+            value={searchedName}
+            onChange={(e) => setSearchedName(e.target.value)}
           />
           <input type="submit" value="Search"/>
         </form>
@@ -50,9 +57,9 @@ export default function FriendsList() {
         {isShowModal && (
           <ModalFrame handleClick={() => setIsShowModal(false)} >
             <Friend
-              id={searchedFriend.id}
-              profile={searchedFriend.profile}
-              name={searchedFriend.name}
+              id={searchedInformation.id}
+              profile={searchedInformation.profile}
+              name={searchedInformation.name}
             />
           </ModalFrame>
         )}
@@ -61,8 +68,8 @@ export default function FriendsList() {
         value={sortMode}
         onChange={(e) => setSortMode(e.target.value)}
       >
-        <option value="Ascending">Ascending</option>
-        <option value="Descending">Descending</option>
+        <option value={ASCENDING}>{ASCENDING}</option>
+        <option value={DESCENDING}>{DESCENDING}</option>
       </SelectWrapper>
       <ListWrapper>
         {sortedFriendsList.map((friend) => (
@@ -95,5 +102,5 @@ const SelectWrapper = styled.select`
 const ListWrapper = styled.div`
   padding: 10px;
   border-radius: 10px;
-  background-color: #ECECEC;
+  background-color: ${GREY_50};
 `;
