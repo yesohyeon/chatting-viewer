@@ -6,7 +6,7 @@ import styled from "styled-components";
 import Comment from "../Comment/Comment";
 
 import { addMessage } from "../../features/messages/index";
-import { getKoreanDateAndTime } from "../../utils/getDateAndTime";
+import { getKoreanDateAndTime } from "../../utils/getFormattedDateAndTime";
 
 import { ENTER_MESSAGE, SEND } from "../../constants/ui";
 import { GREY_50 } from "../../constants/colors";
@@ -24,12 +24,12 @@ export default function Chatroom() {
   useEffect(() => {
     const initialMessages = [];
 
-    allCommentsIds.map((commentId) => {
+    for (const commentId of allCommentsIds) {
       initialMessages.push(allCommentsObj[commentId]);
-    });
+    }
 
     setAllComments(initialMessages);
-  }, []);
+  }, [allCommentsIds]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
