@@ -4,19 +4,29 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 import Friend from "./Friend";
+import ModalPortal from "../Modal/ModalPortal";
 
 import { sortByFriendName } from "../../utils/sort";
+import ModalFrame from "../Modal/ModalFrame";
 
 export default function FriendsList() {
-  const [keyword, setKeyword] = useState("");
+  const [searchName, setSearchName] = useState("");
   const [sortMode, setSortMode] = useState("Ascending");
+  const [isShowModal, setIsShowModal] = useState(false);
+  const [searchedFriend, setSearchFriend] = useState({});
+
   const friendsList = useSelector(state => state.friends.friends);
-  const friendsIds = [...friendsList.allIds];
-  const allFriendsInformation = friendsIds.map((friendId) => friendsList.byId[friendId]);
+  const allFriendsInformation = [...friendsList.allIds].map((friendId) => friendsList.byId[friendId]);
   const sortedFriendsList = sortByFriendName(allFriendsInformation, sortMode);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const targetFriend = allFriendsInformation.find((friend) => friend.name === searchName);
+
+    setSearchFriend(targetFriend);
+
+    setIsShowModal(true);
   };
 
   return (
@@ -26,13 +36,23 @@ export default function FriendsList() {
           <input
             type="test"
             placeholder="이름을 입력하세요"
-            value={keyword}
-            onChange={(e) => setKeyword(e.target.value)}
-
+            value={searchName}
+            onChange={(e) => setSearchName(e.target.value)}
           />
           <input type="submit" value="검색하기"/>
         </form>
       </SearchWrapper>
+      <ModalPortal>
+        {isShowModal && (
+          <ModalFrame handleClick={() => setIsShowModal(false)} >
+            <Friend
+              id={searchedFriend.id}
+              profile={searchedFriend.profile}
+              name={searchedFriend.name}
+            />
+          </ModalFrame>
+        )}
+      </ModalPortal>
       <SelectWrapper
         value={sortMode}
         onChange={(e) => setSortMode(e.target.value)}
