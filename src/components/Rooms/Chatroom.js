@@ -29,6 +29,10 @@ export default function Chatroom() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (!newMessage) {
+      return;
+    }
+
     const messageInformation = {
       id: Math.random().toString(36).substr(2, 16),
       author: "Me",
@@ -43,7 +47,6 @@ export default function Chatroom() {
 
   return (
     <Container>
-
       <Wrapper>
         <CommentsWrapper>
           {allComments.map((comment) => {
@@ -60,7 +63,7 @@ export default function Chatroom() {
         <MessageForm onSubmit={handleSubmit}>
           <input
             type="text"
-            placeholder="메세지를 입력해주세요"
+            placeholder="Please enter your message"
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
           />
@@ -81,15 +84,18 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 800px;
-  height: 600px;
+  height: 680px;
+  border-radius: 10px;
+  background-color: #ECECEC;
 `;
 
 const CommentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 20px;
   width: 600px;
-  height: 500px;
+  height: 620px;
 `;
 
 const MessageForm = styled.form`

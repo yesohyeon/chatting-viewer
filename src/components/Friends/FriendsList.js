@@ -6,7 +6,7 @@ import styled from "styled-components";
 import Friend from "./Friend";
 import ModalPortal from "../Modal/ModalPortal";
 
-import { sortByFriendName } from "../../utils/sort";
+import { sortByName } from "../../utils/sortByName";
 import ModalFrame from "../Modal/ModalFrame";
 
 export default function FriendsList() {
@@ -17,10 +17,14 @@ export default function FriendsList() {
 
   const friendsList = useSelector(state => state.friends.friends);
   const allFriendsInformation = [...friendsList.allIds].map((friendId) => friendsList.byId[friendId]);
-  const sortedFriendsList = sortByFriendName(allFriendsInformation, sortMode);
+  const sortedFriendsList = sortByName(allFriendsInformation, sortMode);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!searchName) {
+      return;
+    }
 
     const targetFriend = allFriendsInformation.find((friend) => friend.name === searchName);
 
@@ -35,11 +39,11 @@ export default function FriendsList() {
         <form onSubmit={handleSubmit}>
           <input
             type="test"
-            placeholder="이름을 입력하세요"
+            placeholder="Please enter your friend name to search"
             value={searchName}
             onChange={(e) => setSearchName(e.target.value)}
           />
-          <input type="submit" value="검색하기"/>
+          <input type="submit" value="Search"/>
         </form>
       </SearchWrapper>
       <ModalPortal>
@@ -60,14 +64,16 @@ export default function FriendsList() {
         <option value="Ascending">Ascending</option>
         <option value="Descending">Descending</option>
       </SelectWrapper>
-      {sortedFriendsList.map((friend) => (
-        <Friend
-          key={friend.id}
-          id={friend.id}
-          profile={friend.profile}
-          name={friend.name}
-        />
-      ))}
+      <ListWrapper>
+        {sortedFriendsList.map((friend) => (
+          <Friend
+            key={friend.id}
+            id={friend.id}
+            profile={friend.profile}
+            name={friend.name}
+          />
+        ))}
+      </ListWrapper>
     </Wrapper>
   );
 }
@@ -83,5 +89,11 @@ const SearchWrapper = styled.div`
 `;
 
 const SelectWrapper = styled.select`
-  margin: 10px 0;
+  margin: 20px 0;
+`;
+
+const ListWrapper = styled.div`
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #ECECEC;
 `;

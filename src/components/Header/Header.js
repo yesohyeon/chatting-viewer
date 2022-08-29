@@ -16,11 +16,17 @@ export default function Header() {
 const Wrapper = styled.header`
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
+  margin: 20px 0;
 `;
 
 const NavigationWrapper = styled.nav`
+  display: flex;
+  justify-content: space-between;
+  width: 20%;
+  
   > * {
-    margin-right: 50px;
+    padding: 10px;
+    background-color: #ECECEC;
+    border-radius: 5px;
   }
 `;
