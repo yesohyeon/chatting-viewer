@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-import { getFormattedDateAndTime } from "../../utils/getFormattedDateAndTime";
+import { getFormattedDateAndTime } from "../../utils/getDateAndTime";
 import { GREY_50 } from "../../constants/colors";
 
 export default function ChatroomItem({ id, profile, name, lastMessage, createdAt }) {

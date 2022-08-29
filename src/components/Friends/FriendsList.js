@@ -53,6 +53,26 @@ export default function FriendsList() {
           <input type="submit" value="Search"/>
         </form>
       </SearchWrapper>
+
+      <SelectWrapper
+        value={sortMode}
+        onChange={(e) => setSortMode(e.target.value)}
+      >
+        <option value={ASCENDING}>{ASCENDING}</option>
+        <option value={DESCENDING}>{DESCENDING}</option>
+      </SelectWrapper>
+
+      <ListWrapper>
+        {sortedFriendsList.map((friend) => (
+          <Friend
+            key={friend.id}
+            id={friend.id}
+            profile={friend.profile}
+            name={friend.name}
+          />
+        ))}
+      </ListWrapper>
+
       <ModalPortal>
         {isShowModal && (
           <ModalFrame handleClick={() => setIsShowModal(false)} >
@@ -64,23 +84,6 @@ export default function FriendsList() {
           </ModalFrame>
         )}
       </ModalPortal>
-      <SelectWrapper
-        value={sortMode}
-        onChange={(e) => setSortMode(e.target.value)}
-      >
-        <option value={ASCENDING}>{ASCENDING}</option>
-        <option value={DESCENDING}>{DESCENDING}</option>
-      </SelectWrapper>
-      <ListWrapper>
-        {sortedFriendsList.map((friend) => (
-          <Friend
-            key={friend.id}
-            id={friend.id}
-            profile={friend.profile}
-            name={friend.name}
-          />
-        ))}
-      </ListWrapper>
     </Wrapper>
   );
 }
