@@ -6,7 +6,7 @@ import { getKoreanDateAndTime } from "../../utils/getDateAndTime";
 
 describe("MessagesReducer", () => {
   it("Return the initial state", () => {
-    expect(messagesReducer(undefined, {}).toEqual(initialState));
+    expect(messagesReducer(undefined, {})).toEqual(initialState);
   });
 
   it("Handle ADD_MESSAGE", () => {
