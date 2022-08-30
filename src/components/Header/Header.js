@@ -1,17 +1,20 @@
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import PropTypes from "prop-types";
+
+import { exitRoom } from "../../features/messages";
 
 import { FRIENDS_LIST, CHATROOM_LIST } from "../../constants/ui";
 import { GREY_50 } from "../../constants/colors";
-import Comment from "../Comment/Comment";
 
-export default function Header({ handleClick }) {
+export default function Header() {
+  const dispatch = useDispatch();
+
   return (
     <Wrapper>
       <NavigationWrapper>
-        <Link to="/friends" onClick={handleClick}>{FRIENDS_LIST}</Link>
-        <Link to="/rooms" onClick={handleClick}>{CHATROOM_LIST}</Link>
+        <Link to="/friends" onClick={() => dispatch(exitRoom())}>{FRIENDS_LIST}</Link>
+        <Link to="/rooms" onClick={() => dispatch(exitRoom())}>{CHATROOM_LIST}</Link>
       </NavigationWrapper>
     </Wrapper>
   );
@@ -34,7 +37,3 @@ const NavigationWrapper = styled.nav`
     border-radius: 5px;
   }
 `;
-
-Header.propTypes = {
-  handleClick: PropTypes.func.isRequired,
-};

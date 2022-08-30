@@ -1,19 +1,20 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import styled from "styled-components";
-import PropTypes from "prop-types";
 
 import Friend from "./Friend";
 import Chatroom from "../Rooms/Chatroom";
 import ModalPortal from "../Modal/ModalPortal";
 import ModalFrame from "../Modal/ModalFrame";
 
+import { enterRoom } from "../../features/messages";
 import { sortByName } from "../../utils/sort";
+
 import { ASCENDING, DESCENDING, ENTER_NAME, NO_MATCH_NAME } from "../../constants/ui";
 import { GREY_50 } from "../../constants/colors";
 
-export default function FriendsList({ selectedRoomId, handleClick }) {
+export default function FriendsList() {
   const [searchedName, setSearchedName] = useState("");
   const [sortMode, setSortMode] = useState(ASCENDING);
   const [isShowModal, setIsShowModal] = useState(false);
@@ -22,6 +23,9 @@ export default function FriendsList({ selectedRoomId, handleClick }) {
   const friendsList = useSelector(state => state.messages.friends);
   const allFriendsInformation = [...friendsList.allIds].map((friendId) => friendsList.byId[friendId]);
   const sortedFriendsList = sortByName(allFriendsInformation, sortMode);
+
+  const selectedRoomId = useSelector(state => state.messages.selectedRoomId);
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -73,7 +77,7 @@ export default function FriendsList({ selectedRoomId, handleClick }) {
                 key={friend.id}
                 profile={friend.profile}
                 name={friend.name}
-                handleClick={() => handleClick(friend.id)}
+                handleClick={() => dispatch(enterRoom(friend.id))}
               />
             ))}
           </ListWrapper>
@@ -85,7 +89,7 @@ export default function FriendsList({ selectedRoomId, handleClick }) {
                   id={searchedInformation.id}
                   profile={searchedInformation.profile}
                   name={searchedInformation.name}
-                  handleClick={() => handleClick(searchedInformation.id)}
+                  handleClick={() => dispatch(enterRoom(searchedInformation.id))}
                 />
               </ModalFrame>
             )}
@@ -117,7 +121,3 @@ const ListWrapper = styled.div`
   background-color: ${GREY_50};
 `;
 
-FriendsList.propTypes = {
-  selectedRoomId: PropTypes.string.isRequired,
-  handleClick: PropTypes.func.isRequired,
-};

@@ -1,12 +1,13 @@
-import { useSelector } from "react-redux";
-import PropTypes from "prop-types";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
 import ChatroomItem from "./ChatroomItem";
 import Chatroom from "./Chatroom";
+
+import { enterRoom } from "../../features/messages";
 import { sortByDate } from "../../utils/sort";
 
-export default function ChatroomList({ selectedRoomId, handleClick }) {
+export default function ChatroomList() {
   const friendsList = useSelector(state => state.messages.friends);
   const friendsIds = [...friendsList.allIds];
   const allFriendsInformation = friendsIds.map((friendId) => friendsList.byId[friendId]);
@@ -14,6 +15,9 @@ export default function ChatroomList({ selectedRoomId, handleClick }) {
 
   const comments = useSelector(state => state.messages.comments.byId);
   const sortedRoomsByDate = sortByDate(chatroomList, comments);
+
+  const selectedRoomId = useSelector(state => state.messages.selectedRoomId);
+  const dispatch = useDispatch();
 
   return (
     <Wrapper>
@@ -28,7 +32,7 @@ export default function ChatroomList({ selectedRoomId, handleClick }) {
             name={room.name}
             lastMessage={lastMessage.comment}
             createdAt={lastMessage.createdAt}
-            handleClick={() => handleClick(room.id)}
+            handleClick={() => dispatch(enterRoom(room.id))}
           />
         );
       })}
@@ -42,8 +46,3 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-
-ChatroomList.propTypes = {
-  selectedRoomId: PropTypes.string.isRequired,
-  handleClick: PropTypes.func.isRequired,
-};
