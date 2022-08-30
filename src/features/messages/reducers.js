@@ -1,4 +1,4 @@
-import { ADD_MESSAGE } from "./types";
+import { ADD_MESSAGE, ENTER_ROOM, EXIT_ROOM } from "./types";
 
 import { profileImages } from "../../assets/images";
 
@@ -49,6 +49,7 @@ export const initialState = {
     },
     allIds: ["cccc", "eeee", "ffff"],
   },
+  selectedRoomId: "",
 };
 
 export default function messagesReducer(state = initialState, action) {
@@ -62,6 +63,10 @@ export default function messagesReducer(state = initialState, action) {
       newState.comments.allIds.push(action.payload.messageInfo.id);
 
       return newState;
+    case ENTER_ROOM:
+      return {...state, selectedRoomId: action.payload };
+    case EXIT_ROOM:
+      return {...state, selectedRoomId: "" };
     default:
       return {...state};
   }
