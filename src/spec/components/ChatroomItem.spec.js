@@ -1,4 +1,4 @@
-import { screen, fireEvent } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 
 import ChatroomItem from "../../components/Rooms/ChatroomItem";
 import renderWithProviders from "../utils/renderWithProviders";
