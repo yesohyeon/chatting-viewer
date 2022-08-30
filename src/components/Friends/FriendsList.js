@@ -6,13 +6,13 @@ import Friend from "./Friend";
 import ModalPortal from "../Modal/ModalPortal";
 import ModalFrame from "../Modal/ModalFrame";
 
-import { sortByName } from "../../utils/sortByName";
+import { sortByName } from "../../utils/sort";
 import { ASCENDING, DESCENDING, ENTER_NAME, NO_MATCH_NAME } from "../../constants/ui";
 import { GREY_50 } from "../../constants/colors";
 
 export default function FriendsList() {
   const [searchedName, setSearchedName] = useState("");
-  const [sortMode, setSortMode] = useState({ASCENDING});
+  const [sortMode, setSortMode] = useState(ASCENDING);
   const [isShowModal, setIsShowModal] = useState(false);
   const [searchedInformation, setSearchedInformation] = useState({});
 

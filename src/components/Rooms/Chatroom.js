@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 import Comment from "../Comment/Comment";
 
@@ -11,8 +12,7 @@ import { getKoreanDateAndTime } from "../../utils/getDateAndTime";
 import { ENTER_MESSAGE, SEND } from "../../constants/ui";
 import { GREY_50 } from "../../constants/colors";
 
-export default function Chatroom() {
-  const { friendId } = useParams();
+export default function Chatroom({ friendId }) {
   const [newMessage, setNewMessage] = useState("");
   const [allComments, setAllComments] = useState([]);
 
@@ -108,3 +108,7 @@ const MessageForm = styled.form`
   width: 600px;
   height: 30px;
 `;
+
+Chatroom.propTypes = {
+  friendId: PropTypes.string,
+};
