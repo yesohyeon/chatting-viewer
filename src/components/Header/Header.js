@@ -35,6 +35,6 @@ const NavigationWrapper = styled.nav`
   }
 `;
 
-Comment.propTypes = {
+Header.propTypes = {
   handleClick: PropTypes.func.isRequired,
 };
