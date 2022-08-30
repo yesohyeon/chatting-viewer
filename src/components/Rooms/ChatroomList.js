@@ -14,14 +14,14 @@ export default function ChatroomList() {
   const chatroomList = allFriendsInformation.filter((item) => item.comments.length > 0);
 
   const comments = useSelector(state => state.messages.comments.byId);
-  const sortedRoomsByDate = sortByDate(chatroomList, comments);
+  const sortedRoomListByDate = sortByDate(chatroomList, comments);
 
   const selectedRoomId = useSelector(state => state.messages.selectedRoomId);
   const dispatch = useDispatch();
 
   return (
     <Wrapper>
-      {!selectedRoomId && sortedRoomsByDate.map((room) => {
+      {!selectedRoomId && sortedRoomListByDate.map((room) => {
         const latestMessageId = room.comments[room.comments.length - 1];
         const lastMessage = comments[latestMessageId];
 
