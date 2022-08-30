@@ -1,6 +1,6 @@
 import messagesReducer from "../../features/messages";
 import { initialState } from "../../features/messages/reducers";
-import { ADD_MESSAGE } from "../../features/messages/types";
+import { ADD_MESSAGE, ENTER_ROOM, EXIT_ROOM } from "../../features/messages/types";
 
 import { getKoreanDateAndTime } from "../../utils/getDateAndTime";
 
@@ -28,5 +28,23 @@ describe("MessagesReducer", () => {
     expect(messagesReducer(
       undefined, { type: ADD_MESSAGE, payload: { roomId, messageInfo } }
     )).toEqual(newState);
+  });
+
+  it("Handle ENTER_ROOM", () => {
+    const roomId = "c";
+
+    const newState = {...initialState};
+    newState.selectedRoomId = roomId;
+
+    expect(messagesReducer(
+      undefined, { type: ENTER_ROOM, payload: roomId }
+    )).toEqual(newState);
+  });
+
+  it("Handle EXIT_ROOM", () => {
+    const newState = {...initialState};
+    newState.selectedRoomId = "";
+
+    expect(messagesReducer(undefined, { type: EXIT_ROOM })).toEqual(newState);
   });
 });
