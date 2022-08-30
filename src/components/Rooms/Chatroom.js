@@ -49,6 +49,8 @@ export default function Chatroom({ id }) {
     setAllComments((prev) => [...prev, newMessageInformation]);
 
     dispatch(addMessage(id, newMessageInformation));
+
+    setNewMessage("");
   };
 
   return (
@@ -71,7 +73,7 @@ export default function Chatroom({ id }) {
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
           />
-          <input type="submit" value={SEND} />
+          <input type="submit" value={SEND} data-testid="send" />
         </MessageForm>
       </Wrapper>
     </Container>
