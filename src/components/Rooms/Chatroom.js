@@ -4,8 +4,11 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
+import { ref, update } from "firebase/database";
+
 import Comment from "../Comment/Comment";
 
+import { database } from "../../firebase";
 import { addMessage } from "../../features/messages/index";
 import { getKoreanDateAndTime } from "../../utils/getDateAndTime";
 
@@ -31,7 +34,7 @@ export default function Chatroom({ id }) {
     setAllComments(initialMessages);
   }, [allCommentsIds]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!newMessage) {
@@ -46,11 +49,20 @@ export default function Chatroom({ id }) {
       createdAt: getKoreanDateAndTime(),
     };
 
-    setAllComments((prev) => [...prev, newMessageInformation]);
+    const databaseRef = ref(database);
+    const updates = {};
 
-    dispatch(addMessage(id, newMessageInformation));
+    updates[`/comments/byId/${newMessageInformation.id}`] = newMessageInformation;
 
-    setNewMessage("");
+    try {
+      await update(databaseRef,  updates);
+
+      setAllComments((prev) => [...prev, newMessageInformation]);
+      dispatch(addMessage(id, newMessageInformation));
+      setNewMessage("");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 
-import { ref, set } from "firebase/database";
+import { ref, update } from "firebase/database";
 
 import Friend from "./Friend";
 import Chatroom from "../Rooms/Chatroom";
@@ -30,10 +30,13 @@ export default function FriendsList() {
   const dispatch = useDispatch();
 
   const showChatroom = async (id) => {
-    const selectedRoomIdRef = ref(database, "selectedRoomId");
+    const databaseRef = ref(database);
 
     try {
-      await set(selectedRoomIdRef, id);
+      const updates = {};
+      updates["/selectedRoomId"] = id;
+
+      await update(databaseRef, updates);
 
       dispatch(enterRoom(id));
     } catch (err) {

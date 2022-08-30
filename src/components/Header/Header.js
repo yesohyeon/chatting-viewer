@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { ref, set } from "firebase/database";
+import { ref, update } from "firebase/database";
 
 import { database } from "../../firebase";
 import { exitRoom } from "../../features/messages";
@@ -14,10 +14,13 @@ export default function Header() {
   const dispatch = useDispatch();
 
   const exitChatroom = async () => {
-    const selectedRoomIdRef = ref(database, "selectedRoomId");
+    const databaseRef = ref(database);
 
     try {
-      await set(selectedRoomIdRef, "");
+      const updates = {};
+      updates["/selectedRoomId"] = "";
+
+      await update(databaseRef, updates);
 
       dispatch(exitRoom());
     } catch (err) {
