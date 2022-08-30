@@ -1,19 +1,16 @@
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
 import { TALK } from "../../constants/ui";
 
-export default function Friend({ id, profile, name }) {
-  const navigate = useNavigate();
-
+export default function Friend({ profile, name, handleClick }) {
   return (
     <Wrapper>
       <ProfileWrapper>
         <img src={profile} alt="profile" width="20" height="20" />
         <div>{name}</div>
       </ProfileWrapper>
-      <button onClick={() => navigate(`/rooms/${id}`)}>{TALK}</button>
+      <button onClick={handleClick}>{TALK}</button>
     </Wrapper>
   );
 }
@@ -37,8 +34,8 @@ const ProfileWrapper = styled.div`
 `;
 
 Friend.propTypes = {
-  id: PropTypes.string.isRequired,
   profile: PropTypes.string,
   name: PropTypes.string.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 

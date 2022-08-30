@@ -12,11 +12,11 @@ import { getKoreanDateAndTime } from "../../utils/getDateAndTime";
 import { ENTER_MESSAGE, SEND } from "../../constants/ui";
 import { GREY_50 } from "../../constants/colors";
 
-export default function Chatroom({ friendId }) {
+export default function Chatroom({ id }) {
   const [newMessage, setNewMessage] = useState("");
   const [allComments, setAllComments] = useState([]);
 
-  const allCommentsIds = useSelector(state => state.messages.friends).byId[friendId].comments;
+  const allCommentsIds = useSelector(state => state.messages.friends).byId[id].comments;
   const allCommentsObj = useSelector(state => state.messages.comments.byId);
 
   const dispatch = useDispatch();
@@ -48,7 +48,7 @@ export default function Chatroom({ friendId }) {
 
     setAllComments((prev) => [...prev, newMessageInformation]);
 
-    dispatch(addMessage(friendId, newMessageInformation));
+    dispatch(addMessage(id, newMessageInformation));
   };
 
   return (
@@ -110,5 +110,5 @@ const MessageForm = styled.form`
 `;
 
 Chatroom.propTypes = {
-  friendId: PropTypes.string,
+  id: PropTypes.string,
 };

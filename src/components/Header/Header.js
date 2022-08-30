@@ -1,15 +1,17 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 import { FRIENDS_LIST, CHATROOM_LIST } from "../../constants/ui";
 import { GREY_50 } from "../../constants/colors";
+import Comment from "../Comment/Comment";
 
-export default function Header() {
+export default function Header({ handleClick }) {
   return (
     <Wrapper>
       <NavigationWrapper>
-        <Link to="/friends">{FRIENDS_LIST}</Link>
-        <Link to="/rooms">{CHATROOM_LIST}</Link>
+        <Link to="/friends" onClick={handleClick}>{FRIENDS_LIST}</Link>
+        <Link to="/rooms" onClick={handleClick}>{CHATROOM_LIST}</Link>
       </NavigationWrapper>
     </Wrapper>
   );
@@ -32,3 +34,7 @@ const NavigationWrapper = styled.nav`
     border-radius: 5px;
   }
 `;
+
+Comment.propTypes = {
+  handleClick: PropTypes.func.isRequired,
+};
