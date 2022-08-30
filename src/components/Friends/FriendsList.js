@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
 import styled from "styled-components";
+
+import { ref, set } from "firebase/database";
 
 import Friend from "./Friend";
 import Chatroom from "../Rooms/Chatroom";
 import ModalPortal from "../Modal/ModalPortal";
 import ModalFrame from "../Modal/ModalFrame";
 
+import { database } from "../../firebase";
 import { enterRoom } from "../../features/messages";
 import { sortByName } from "../../utils/sort";
 
@@ -26,6 +28,18 @@ export default function FriendsList() {
 
   const selectedRoomId = useSelector(state => state.messages.selectedRoomId);
   const dispatch = useDispatch();
+
+  const showChatroom = async (id) => {
+    const selectedRoomIdRef = ref(database, "selectedRoomId");
+
+    try {
+      await set(selectedRoomIdRef, id);
+
+      dispatch(enterRoom(id));
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -77,7 +91,7 @@ export default function FriendsList() {
                 key={friend.id}
                 profile={friend.profile}
                 name={friend.name}
-                handleClick={() => dispatch(enterRoom(friend.id))}
+                handleClick={() => showChatroom(friend.id)}
               />
             ))}
           </ListWrapper>
@@ -89,7 +103,7 @@ export default function FriendsList() {
                   id={searchedInformation.id}
                   profile={searchedInformation.profile}
                   name={searchedInformation.name}
-                  handleClick={() => dispatch(enterRoom(searchedInformation.id))}
+                  handleClick={() => showChatroom(searchedInformation.id)}
                 />
               </ModalFrame>
             )}
