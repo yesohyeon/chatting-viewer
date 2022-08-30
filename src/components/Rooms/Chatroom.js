@@ -4,8 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-import { ref, update } from "firebase/database";
-
+import { ref, update, onValue } from "firebase/database";
 import Comment from "../Comment/Comment";
 
 import { database } from "../../firebase";
@@ -18,6 +17,9 @@ import { GREY_50 } from "../../constants/colors";
 export default function Chatroom({ id }) {
   const [newMessage, setNewMessage] = useState("");
   const [allComments, setAllComments] = useState([]);
+  
+  const [commentsInFirebase, setCommentsInFirebase] = useState([]);
+  const [allIdsInFirebase, setAllIdsInFirebase] = useState([]);
 
   const allCommentsIds = useSelector(state => state.messages.friends).byId[id].comments;
   const allCommentsObj = useSelector(state => state.messages.comments.byId);
@@ -32,6 +34,17 @@ export default function Chatroom({ id }) {
     }
 
     setAllComments(initialMessages);
+
+    const commentsRef = ref(database, `friends/byId/${id}/comments`);
+    const commentsAllIdsRef = ref(database, "comments/allIds");
+
+    onValue(commentsRef, (snapshot) => {
+      setCommentsInFirebase(JSON.parse(snapshot.val()));
+    });
+
+    onValue(commentsAllIdsRef, (snapshot) => {
+      setAllIdsInFirebase(JSON.parse(snapshot.val()));
+    })
   }, [allCommentsIds]);
 
   const handleSubmit = async (e) => {
@@ -52,7 +65,15 @@ export default function Chatroom({ id }) {
     const databaseRef = ref(database);
     const updates = {};
 
+    const newCommentsArr = commentsInFirebase;
+    const newAllIdsArr = allIdsInFirebase;
+
+    newCommentsArr.push(newMessageInformation.id);
+    newAllIdsArr.push(newMessageInformation.id);
+
     updates[`/comments/byId/${newMessageInformation.id}`] = newMessageInformation;
+    updates[`/friends/byId/${id}/comments`] = JSON.stringify(newCommentsArr);
+    updates[`/comments/allIds`] = JSON.stringify(newAllIdsArr);
 
     try {
       await update(databaseRef,  updates);
