@@ -20,7 +20,7 @@
 
 ## 배포 주소
 
-https://630ccc2c6be8834be660603f--glittering-sorbet-6d6c6a.netlify.app/friends
+https://glittering-sorbet-6d6c6a.netlify.app/friends
 
 <br/>
 <br/>
@@ -44,7 +44,7 @@ Version Management
 
 ## 구동 장면
 
-<img style="width:500px" src="https://user-images.githubusercontent.com/93248242/187351552-db5ab4e5-4e8d-4d2f-a935-753c0c607f58.gif" alt="chatting-viewer">
+<img style="width:500px" src="https://user-images.githubusercontent.com/93248242/187362589-83fa7aee-c2cf-46f7-b15a-3abd4200bdde.mp4" alt="chatting-viewer">
 
 <br/>
 <br/>
