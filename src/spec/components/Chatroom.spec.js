@@ -1,4 +1,4 @@
-import { screen, fireEvent } from "@testing-library/react";
+import { screen, fireEvent, waitFor } from "@testing-library/react";
 
 import Chatroom from "../../components/Rooms/Chatroom";
 
@@ -6,7 +6,7 @@ import renderWithProviders from "../utils/renderWithProviders";
 import { ENTER_MESSAGE } from "../../constants/ui";
 
 describe("<Chatroom />", () => {
-  it("Show message when message is sent", () => {
+  it("Show message when message is sent", async () => {
     const id = "a";
 
     renderWithProviders(<Chatroom  id={id} />);
@@ -17,6 +17,8 @@ describe("<Chatroom />", () => {
     fireEvent.change(messageInput, { target: { value: "Hello" } });
     fireEvent.click(sendButton);
 
-    expect(screen.getByText("Me : Hello")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText("Me : Hello")).toBeInTheDocument();
+    });
   });
 });
