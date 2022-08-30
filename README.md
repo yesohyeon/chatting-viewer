@@ -1,70 +1,130 @@
-# Getting Started with Create React App
+<h1 align="center">
+  Chatting-Viewer
+</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<br/>
+<br/>
 
-## Available Scripts
+## Index
 
-In the project directory, you can run:
+  <ol>
+    <li><a href="#배포 주소">배포 주소</a></li>
+    <li><a href="#기술 스택">기술 스택</a></li>
+    <li><a href="#구동 장면">구동 장면</a></li>
+    <li><a href="#구현 사항">구현 사항</a></li>
+    <li><a href="#파일 구조">src 파일 구조</a></li>
+    <li><a href="#데이터 구조">데이터 구조</a></li>
+    <li><a href="#실행 방법">사전 설치</a></li>
+    <li><a href="#작업 방법">작업 방법</a></li>
+  </ol>
 
-### `npm start`
+<br/>
+<br/>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 배포 주소
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+https://630ccc2c6be8834be660603f--glittering-sorbet-6d6c6a.netlify.app/friends
 
-### `npm test`
+<br/>
+<br/>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 기술 스택
 
-### `npm run build`
+Base  
+`React`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Style  
+`Styled-component`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Real-time Chat  
+`Firebase`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Version Management  
+`Git`
 
-### `npm run eject`
+<br/>
+<br/>
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 구동 장면
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<img style="width:500px" src="https://user-images.githubusercontent.com/93248242/187351552-db5ab4e5-4e8d-4d2f-a935-753c0c607f58.gif" alt="chatting-viewer">
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+<br/>
+<br/>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 구현 사항
 
-## Learn More
+친구 목록 페이지 - /friends
+- 채팅 목록으로 이동할 수 있는 버튼
+- 친구 이름, 사진과 함께 채팅을 시작할 수 있는 버튼
+- 대화하기 버튼 클릭해 해당 친구와의 채팅 페이지로 바로 이동
+- 친구 목록의 이름 오름차순 또는 내림차순 나열
+- 친구 이름을 기준으로 검색할 수 있는 기능
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+채팅 목록 페이지 - /rooms
+- 친구 목록으로 이동할 수 있는 버튼
+- 진행 중인 채팅이 날짜순으로 나열(최신 날짜 상위)
+- 진행 중인 채팅의 친구 이름, 가장 최신 메시지의 첫 30글자, 가장 최신 메시지 전송 날짜 및 시간 표기
+- 채팅을 선택하면 채팅 페이지로 이동
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+채팅 페이지
+- 상대방과 나눈 대화가 시간 순(최근 메시지가 하위)으로 나열
+- 상대방 이름, 메시지 내용, 전송 날짜 및 시간 표기
+- 메시지를 전송할 경우, 현재 채팅 페이지와 채팅 목록 페이지에 새로운 메시지 반영
 
-### Code Splitting
+<br/>
+<br/>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## src 파일 구조
 
-### Analyzing the Bundle Size
+```bash
+├── src
+     ├── app
+     ├── assets
+     ├── components
+     │        ├── Comment
+     │        ├── Friends
+     │        ├── Rooms
+     │        ├── Header
+     │        └── Modal
+     ├── features
+     ├── constants
+     ├── utils
+     └── spec
+           ├── actions
+           ├── reducers
+           ├── components
+           └── utils
+```
+<br/>
+<br/>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 데이터 구조
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```bash
+├── friends
+│   ├── byId
+│   └── allIds
+├── comments
+│   ├── byId
+│   └── allIds  
+└── selectedRoomId
+```
+<br/>
+<br/>
 
-### Advanced Configuration
+## 사전 설치
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Install dependencies
 
-### Deployment
+```sh
+$ npm install
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 작업 방법
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```sh
+$ npm start
+# Visit http://localhost:3000 from your browser (Chrome)
+```
