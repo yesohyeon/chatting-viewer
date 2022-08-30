@@ -1,15 +1,12 @@
-import { useState } from "react";
 import { useSelector } from "react-redux";
-
+import PropTypes from "prop-types";
 import styled from "styled-components";
 
 import ChatroomItem from "./ChatroomItem";
 import Chatroom from "./Chatroom";
-import {sortByDate} from "../../utils/sort";
+import { sortByDate } from "../../utils/sort";
 
-export default function ChatroomList() {
-  const [selectedRoomId, setSelectedRoomId] = useState("");
-
+export default function ChatroomList({ selectedRoomId, handleClick }) {
   const friendsList = useSelector(state => state.messages.friends);
   const friendsIds = [...friendsList.allIds];
   const allFriendsInformation = friendsIds.map((friendId) => friendsList.byId[friendId]);
@@ -31,11 +28,11 @@ export default function ChatroomList() {
             name={room.name}
             lastMessage={lastMessage.comment}
             createdAt={lastMessage.createdAt}
-            handleClick={() => setSelectedRoomId(room.id)}
+            handleClick={() => handleClick(room.id)}
           />
         );
       })}
-      {selectedRoomId && <Chatroom friendId={selectedRoomId} />}
+      {selectedRoomId && <Chatroom id={selectedRoomId} />}
     </Wrapper>
   );
 }
@@ -45,3 +42,8 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+
+ChatroomList.propTypes = {
+  selectedRoomId: PropTypes.string.isRequired,
+  handleClick: PropTypes.func.isRequired,
+};
