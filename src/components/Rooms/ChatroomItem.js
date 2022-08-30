@@ -1,15 +1,12 @@
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
 import { getFormattedDateAndTime } from "../../utils/getDateAndTime";
 import { GREY_50 } from "../../constants/colors";
 
-export default function ChatroomItem({ id, profile, name, lastMessage, createdAt }) {
-  const navigate = useNavigate();
-
+export default function ChatroomItem({ profile, name, lastMessage, createdAt, handleClick }) {
   return (
-    <Wrapper onClick={() => navigate(`/rooms/${id}`)}>
+    <Wrapper onClick={handleClick}>
       <ProfileWrapper>
         <img src={profile} alt="profile" width="20" height="20" />
         <div>{name}</div>
@@ -54,10 +51,10 @@ const MessageWrapper = styled.div`
 `;
 
 ChatroomItem.propTypes = {
-  id: PropTypes.string.isRequired,
   profile: PropTypes.string,
   name: PropTypes.string.isRequired,
   lastMessage: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 
