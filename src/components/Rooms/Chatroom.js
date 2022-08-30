@@ -17,7 +17,7 @@ import { GREY_50 } from "../../constants/colors";
 export default function Chatroom({ id }) {
   const [newMessage, setNewMessage] = useState("");
   const [allComments, setAllComments] = useState([]);
-  
+
   const [commentsInFirebase, setCommentsInFirebase] = useState([]);
   const [allIdsInFirebase, setAllIdsInFirebase] = useState([]);
 
