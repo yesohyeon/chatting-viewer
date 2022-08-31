@@ -6,6 +6,12 @@
 <br/>
 
 <p align="center">
+  <img src="https://img.shields.io/badge/Frontend-React, Redux-blue.svg" alt="Frontend-React-Redux">
+  <img src="https://img.shields.io/badge/Real time chat-Firebase-green.svg" alt="Firebase">
+  <img src="https://img.shields.io/badge/Netlify-published-brightgreen.svg" alt="Firebase">
+</p>
+
+<p align="center">
   <img style="width:230px"
  src="https://user-images.githubusercontent.com/93248242/187590323-d632e581-e81f-428c-a696-4dd30ee571ee.png" alt="Usepool-Logo">
 </p>
@@ -14,10 +20,10 @@
   React, Redux, Firebase를 이용한 채팅 웹 어플리케이션
 </h4>
 
-<img style="width:500px" src="https://user-images.githubusercontent.com/93248242/187362589-83fa7aee-c2cf-46f7-b15a-3abd4200bdde.mp4" alt="chatting-viewer">
+<br/>
+<br/>
 
-<br/>
-<br/>
+<img style="width:500px" src="https://user-images.githubusercontent.com/93248242/187362589-83fa7aee-c2cf-46f7-b15a-3abd4200bdde.mp4" alt="chatting-viewer">
 
 ## Index
 
