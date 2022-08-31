@@ -15,13 +15,14 @@ export default function Comment({ name, comment, createdAt }) {
 
 const Wrapper = styled.div`
   display: flex;
+  justify-content: ${({ justifyContent }) => justifyContent };
   margin-bottom: 16px;
   width: 100%;
-  justify-content: ${({ justifyContent }) => justifyContent };
   
   >: first-child {
     font-size: 20px;
   }
+  
   >: last-child {
     margin-left: 15px;
     font-size: 10px;

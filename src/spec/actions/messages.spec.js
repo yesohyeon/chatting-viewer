@@ -24,10 +24,7 @@ describe("Messages action", () => {
 
   it("Create action which has information of room id", () => {
     const roomId = "5678efgh";
-    const expectedAction = {
-      type: ENTER_ROOM,
-      payload: roomId,
-    };
+    const expectedAction = { type: ENTER_ROOM, payload: roomId };
 
     const result = actions.enterRoom(roomId);
     expect(result).toEqual(expectedAction);

@@ -6,7 +6,6 @@ import Header from "../../components/Header/Header";
 import renderWithProviders from "../utils/renderWithProviders";
 
 const handleClick = jest.fn();
-
 const PathLocation = () => {
   const location = useLocation();
 
@@ -14,7 +13,6 @@ const PathLocation = () => {
 };
 
 describe("<Header />", () => {
-
   it("Header component show two links", () => {
     renderWithProviders(<Header handleClick={handleClick} />);
 

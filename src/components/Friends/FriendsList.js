@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import styled from "styled-components";
 
+import styled from "styled-components";
 import { ref, update } from "firebase/database";
 
 import Friend from "./Friend";
@@ -17,16 +17,16 @@ import { ASCENDING, DESCENDING, ENTER_NAME, NO_MATCH_NAME } from "../../constant
 import { GREY_50 } from "../../constants/colors";
 
 export default function FriendsList() {
-  const [searchedName, setSearchedName] = useState("");
   const [sortMode, setSortMode] = useState(ASCENDING);
+  const [searchedName, setSearchedName] = useState("");
+  const [searchedFriend, setSearchedFriend] = useState({});
   const [isShowModal, setIsShowModal] = useState(false);
-  const [searchedInformation, setSearchedInformation] = useState({});
 
   const friendsList = useSelector(state => state.messages.friends);
-  const allFriendsInformation = [...friendsList.allIds].map((friendId) => friendsList.byId[friendId]);
+  const allFriendsInformation = friendsList.allIds.map((friendId) => friendsList.byId[friendId]);
   const sortedFriendsList = sortByName(allFriendsInformation, sortMode);
 
-  const selectedRoomId = useSelector(state => state.messages.selectedRoomId);
+  const selectedFriendId = useSelector(state => state.messages.selectedRoomId);
   const dispatch = useDispatch();
 
   const showChatroom = async (id) => {
@@ -49,6 +49,7 @@ export default function FriendsList() {
 
     if (!searchedName) {
       alert(ENTER_NAME);
+
       return;
     }
 
@@ -56,17 +57,18 @@ export default function FriendsList() {
 
     if (!targetFriend) {
       alert(NO_MATCH_NAME);
+
       return;
     }
 
-    setSearchedInformation(targetFriend);
+    setSearchedFriend(targetFriend);
     setIsShowModal(true);
     setSearchedName("");
   };
 
   return (
     <>
-      {!selectedRoomId && (
+      {!selectedFriendId && (
         <Wrapper>
           <SearchWrapper>
             <form onSubmit={handleSubmit}>
@@ -103,17 +105,17 @@ export default function FriendsList() {
             {isShowModal && (
               <ModalFrame handleClick={() => setIsShowModal(false)} >
                 <Friend
-                  id={searchedInformation.id}
-                  profile={searchedInformation.profile}
-                  name={searchedInformation.name}
-                  handleClick={() => showChatroom(searchedInformation.id)}
+                  id={searchedFriend.id}
+                  profile={searchedFriend.profile}
+                  name={searchedFriend.name}
+                  handleClick={() => showChatroom(searchedFriend.id)}
                 />
               </ModalFrame>
             )}
           </ModalPortal>
         </Wrapper>
       )}
-      {selectedRoomId && <Chatroom id={selectedRoomId} />}
+      {selectedFriendId && <Chatroom id={selectedFriendId} />}
     </>
   );
 }

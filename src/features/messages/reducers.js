@@ -1,5 +1,4 @@
 import { ADD_MESSAGE, ENTER_ROOM, EXIT_ROOM } from "./types";
-
 import { profileImages } from "../../assets/images";
 
 export const initialState = {

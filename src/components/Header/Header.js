@@ -51,7 +51,7 @@ const NavigationWrapper = styled.nav`
   
   > * {
     padding: 10px;
-    background-color: ${GREY_50};
     border-radius: 5px;
+    background-color: ${GREY_50};
   }
 `;

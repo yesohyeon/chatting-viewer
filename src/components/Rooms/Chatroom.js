@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 import styled from "styled-components";
 import PropTypes from "prop-types";
-
 import { ref, update, onValue } from "firebase/database";
+
 import Comment from "../Comment/Comment";
 
 import { database } from "../../firebase";
@@ -16,24 +16,24 @@ import { GREY_50 } from "../../constants/colors";
 
 export default function Chatroom({ id }) {
   const [newMessage, setNewMessage] = useState("");
-  const [allComments, setAllComments] = useState([]);
+  const [chatroomComments, setChatroomComments] = useState([]);
 
   const [commentsInFirebase, setCommentsInFirebase] = useState([]);
   const [allIdsInFirebase, setAllIdsInFirebase] = useState([]);
 
-  const allCommentsIds = useSelector(state => state.messages.friends).byId[id].comments;
-  const allCommentsObj = useSelector(state => state.messages.comments.byId);
+  const commentsIdsInChatroom = useSelector(state => state.messages.friends).byId[id].comments;
+  const allComments = useSelector(state => state.messages.comments.byId);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const initialMessages = [];
+    const currentMessages = [];
 
-    for (const commentId of allCommentsIds) {
-      initialMessages.push(allCommentsObj[commentId]);
+    for (const commentId of commentsIdsInChatroom) {
+      currentMessages.push(allComments[commentId]);
     }
 
-    setAllComments(initialMessages);
+    setChatroomComments(currentMessages);
 
     const commentsRef = ref(database, `friends/byId/${id}/comments`);
     const commentsAllIdsRef = ref(database, "comments/allIds");
@@ -45,13 +45,14 @@ export default function Chatroom({ id }) {
     onValue(commentsAllIdsRef, (snapshot) => {
       setAllIdsInFirebase(JSON.parse(snapshot.val()));
     })
-  }, [allCommentsIds]);
+  }, [commentsIdsInChatroom]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!newMessage) {
       alert(ENTER_MESSAGE);
+
       return;
     }
 
@@ -78,8 +79,10 @@ export default function Chatroom({ id }) {
     try {
       await update(databaseRef,  updates);
 
-      setAllComments((prev) => [...prev, newMessageInformation]);
+      setChatroomComments((prev) => [...prev, newMessageInformation]);
+
       dispatch(addMessage(id, newMessageInformation));
+
       setNewMessage("");
     } catch (err) {
       console.log(err);
@@ -90,7 +93,7 @@ export default function Chatroom({ id }) {
     <Container>
       <Wrapper>
         <CommentsWrapper>
-          {allComments.map((comment) => (
+          {chatroomComments.map((comment) => (
             <Comment
               key={comment.id}
               name={comment.author}
