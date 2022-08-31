@@ -12,10 +12,11 @@
 3. [구동 장면](#구동-장면)
 4. [구현 사항](#구현-사항)
 5. [미구현 사항](#미구현-사항)
-6. [파일 구조](#src-파일-구조)
-7. [데이터 구조](#데이터-구조)
-8. [사전 설치](#사전-설치)
-9. [작업 방법](#작업-방법)
+6. [폴더 구조](#src-파일-구조)
+7. [UI 예시](#UI-예시)
+8. [데이터 구조](#데이터-구조)
+9. [사전 설치](#사전-설치)
+10. [작업 방법](#작업-방법)
 
 <br/>
 <br/>
@@ -107,6 +108,24 @@ firebase
            ├── components
            └── utils
 ```
+<br/>
+<br/>
+
+## UI 예시
+
+- 채팅 목록 페이지
+
+<img width="300" alt="KakaoTalk_Image_2022-08-31-09-47-26" src="https://user-images.githubusercontent.com/93248242/187570148-d6d19605-0ea0-4415-be98-6326b3165b56.png">
+
+- 친구 목록 페이지
+
+<img width="300" alt="KakaoTalk_Image_2022-08-31-09-53-23" src="https://user-images.githubusercontent.com/93248242/187570285-86aac941-1dfd-437e-a949-315263d4cffa.png">
+
+- 채팅 페이지
+
+<img width="300" alt="KakaoTalk_Image_2022-08-31-09-58-41" src="https://user-images.githubusercontent.com/93248242/187570333-1e846211-62dd-4231-b1c7-f7a6936a706d.png">
+
+
 <br/>
 <br/>
 
