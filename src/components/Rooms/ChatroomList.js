@@ -9,8 +9,7 @@ import { sortByDate } from "../../utils/sort";
 
 export default function ChatroomList() {
   const allFriends = useSelector(state => state.messages.friends);
-  const friendsAllIds = allFriends.allIds;
-  const allFriendsInformation = friendsAllIds.map((friendId) => allFriends.byId[friendId]);
+  const allFriendsInformation = Object.values(allFriends.byId);
   const chatroomList = allFriendsInformation.filter((room) => room.comments.length > 0);
 
   const comments = useSelector(state => state.messages.comments.byId);
